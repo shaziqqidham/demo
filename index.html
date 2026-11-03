@@ -165,10 +165,94 @@ section{padding-block:56px;border-top:1px dashed var(--line)}
 .copied{display:block;margin-top:12px;font-family:var(--hand);font-size:1.1rem;color:var(--go);min-height:1.5em}
 footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;color:var(--muted);font-size:.88rem}
 @media (prefers-reduced-motion:reduce){.btn,.toggle button{transition:none}.btn:hover,.btn:active,.toggle button:active{transform:none}}
+
+/* Layout refresh: clear navigation, calmer colours and more room for the examples */
+:root{
+  --paper:#F6F8F4; --card:#FFFFFF; --ink:#19372F; --muted:#5B7067;
+  --line:#D9E3DC; --marker:#D8F36B; --on-marker:#19372F; --pick-bg:#D8F36B; --pick-ink:#19372F;
+  --go:#147553; --go-ink:#FFFFFF; --tape:rgba(216,243,107,.75); --shade:rgba(25,55,47,.10); --soft:#EDF2EE; --bad:#A84032;
+  --brand:#123B32; --brand-ink:#F8FBF6;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#101A17; --card:#192722; --ink:#EDF4EF; --muted:#B0C0B7; --line:#30423A;
+  --marker:#B9E45F; --on-marker:#19372F; --pick-bg:#B9E45F; --pick-ink:#19372F;
+  --go:#2CA579; --go-ink:#071710; --tape:rgba(185,228,95,.45); --shade:rgba(0,0,0,.38); --soft:#202F29; --bad:#E28672;
+  --brand:#0D2D26; --brand-ink:#EDF4EF; color-scheme:dark
+}}
+:root[data-theme="dark"]{
+  --paper:#101A17; --card:#192722; --ink:#EDF4EF; --muted:#B0C0B7; --line:#30423A;
+  --marker:#B9E45F; --on-marker:#19372F; --pick-bg:#B9E45F; --pick-ink:#19372F;
+  --go:#2CA579; --go-ink:#071710; --tape:rgba(185,228,95,.45); --shade:rgba(0,0,0,.38); --soft:#202F29; --bad:#E28672;
+  --brand:#0D2D26; --brand-ink:#EDF4EF; color-scheme:dark
+}
+.wrap{max-width:1120px}
+.site-nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:24px;padding:14px 4px;background:var(--paper);border-bottom:1px solid var(--line)}
+.site-nav a{text-decoration:none}
+.site-nav .brand{font-size:1.02rem;font-weight:800;letter-spacing:-.03em;white-space:nowrap}
+.site-nav .brand span{color:var(--go)}
+.nav-links{display:flex;gap:22px;margin-left:auto}
+.nav-links a{font-size:.9rem;font-weight:700;color:var(--muted)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{font-weight:800;background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:999px}
+.hero{margin-top:24px;padding:clamp(28px,5vw,56px);background:var(--brand);color:var(--brand-ink);border:0;border-radius:28px;gap:32px}
+.hero h1{font-size:clamp(2.5rem,6vw,4.35rem);line-height:1.02;max-width:13ch}
+.hero p.sub{color:rgba(248,251,246,.82);font-size:clamp(1.05rem,2vw,1.2rem);max-width:40ch}
+.hero .btn.go{background:var(--marker);border-color:var(--marker);color:var(--ink)}
+.hero .btn:not(.go){color:var(--brand-ink);border-color:rgba(248,251,246,.55)}
+.hero .textlink{color:rgba(248,251,246,.82)}
+.note-card{transform:none;border-radius:22px;box-shadow:0 16px 40px var(--shade)}
+.note-card::before{display:none}
+.avatar{border-color:var(--marker)}
+.story-section,.examples-section,.packages-section,.reviews-section{padding-block:clamp(52px,7vw,84px);border-top:1px solid var(--line)}
+.story-section .frame{border-radius:20px;padding:24px;box-shadow:0 8px 24px var(--shade)}
+.story-section .frame:nth-child(2){background:var(--soft)}
+.examples-section .demos{gap:16px}
+.examples-section .demo{align-items:stretch;padding:16px;background:var(--card);border:1px solid var(--line);border-radius:22px}
+.examples-section .demo .cap{text-align:left}
+.examples-section .phone{border-width:5px;border-radius:28px;box-shadow:0 10px 24px var(--shade)}
+.pkg{border-radius:22px;padding:26px;box-shadow:0 8px 24px var(--shade)}
+.pkg.pick{border:2px solid var(--go);box-shadow:0 12px 28px var(--shade)}
+.pick-note{background:var(--marker);color:var(--ink)}
+.pilot-note{margin-top:8px;color:var(--muted);font-size:.94rem}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.08em;color:var(--go);margin:0 0 10px}
+.review-card{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,56px);align-items:center;margin-top:28px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(24px,5vw,48px);box-shadow:0 12px 32px var(--shade)}
+.review-empty{border-left:4px solid var(--line);padding:8px 0 8px 20px}
+.review-label{font-size:.8rem;font-weight:800;color:var(--muted)}
+.review-empty h3{font-size:clamp(1.25rem,2.5vw,1.7rem);margin-top:8px}
+.review-empty p,.review-action p{color:var(--muted);margin-top:10px}
+.review-action .btn{margin-top:16px}
+.review-note{font-size:.88rem}
+.contact{margin-top:28px;padding:clamp(32px,6vw,64px);background:var(--brand);color:var(--brand-ink);border:0;border-radius:28px}
+.contact .h2{color:var(--brand-ink)}
+.contact .numbox{background:var(--card)}
+.contact .btn.go{background:var(--marker);border-color:var(--marker);color:var(--ink)}
+.contact .btn:not(.go){color:var(--ink)}
+footer{margin-top:48px}
+@media(max-width:680px){
+  .site-nav{position:relative;flex-wrap:wrap;gap:12px}
+  .site-nav .brand{flex:1}
+  .nav-links{order:3;width:100%;justify-content:space-between;gap:8px}
+  .nav-cta{font-size:.9rem;padding:8px 12px}
+  .hero{grid-template-columns:minmax(0,1fr);margin-top:16px}
+  .review-card{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.nav-cta{transition:none}}
+
 </style>
 </head>
 <body>
 <div class="wrap">
+
+<nav class="site-nav" aria-label="Navigasi utama">
+  <a class="brand" href="./">Kedai <span>Senang Dicari</span></a>
+  <div class="nav-links">
+    <a href="#cara">Cara kerja</a>
+    <a href="#contoh">Contoh</a>
+    <a href="#pakej-h">Pakej</a>
+  </div>
+  <a class="nav-cta" href="demo.html">Cuba demo</a>
+</nav>
 
 <header class="hero">
   <div>
@@ -182,13 +266,13 @@ footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;fl
   </div>
   <aside class="note-card" aria-label="Nota daripada Shaziq">
     <div class="avatar" aria-hidden="true">SI</div>
-    <p class="hand">“Minggu ni saya semak 39 kedai di JB kat Google Maps. Ramai tiada gambar, ada yang tiada nombor, satu pusat tuisyen tulis buka 24 jam. Pelanggan baru tengok Maps dulu, baru datang.”</p>
+    <p class="hand">Saya tolong kemaskan Google Maps dan WhatsApp kedai, supaya pelanggan nampak maklumat penting dan senang hubungi anda.</p>
     <p class="sig">A. Shaziq Idham</p>
-    <small>Orang JB. 5 tahun jual kereta sebelum ni, jadi saya faham macam mana pelanggan pilih kedai.</small>
+    <small>Saya buat servis ni sendiri dari Johor Bahru.</small>
   </aside>
 </header>
 
-<section aria-labelledby="cara">
+<section class="story-section" aria-labelledby="cara">
   <h2 class="h2" id="cara">Macam ni pelanggan cari kedai sekarang</h2>
   <div class="story">
     <div class="frame">
@@ -210,10 +294,10 @@ footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;fl
       <p class="bubble">“Salam, kek lapis prune ada lagi?”</p>
     </div>
   </div>
-  <p class="warn">Satu langkah rosak (tiada gambar, waktu salah, nombor lama) dan pelanggan terus pilih kedai sebelah.</p>
+  <p class="warn">Kalau gambar, waktu atau nombor tak tepat, pelanggan mungkin tak jadi hubungi kedai.</p>
 </section>
 
-<section id="contoh" aria-labelledby="demo-h">
+<section class="examples-section" id="contoh" aria-labelledby="demo-h">
   <h2 class="h2" id="demo-h">Contoh kerja saya</h2>
   <p class="lede">Kedai dalam contoh ni rekaan. Bila siap, kedai anda nampak macam ni.</p>
   <div class="cta-row">
@@ -270,7 +354,7 @@ footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;fl
       </div>
       <div class="cap">
         <h3>WhatsApp Business</h3>
-        <p>Katalog, mesej auto dan label order. Tak ada order yang tercicir.</p>
+        <p>Katalog, mesej auto dan label order. Senang nampak pesanan mana yang baru.</p>
       </div>
     </div>
 
@@ -298,7 +382,7 @@ footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;fl
   </div>
 </section>
 
-<section aria-labelledby="pakej-h">
+<section class="packages-section" aria-labelledby="pakej-h">
   <h2 class="h2" id="pakej-h">Tiga pakej, pilih ikut kedai anda</h2>
   <div class="pkgs">
     <div class="pkg">
@@ -335,19 +419,23 @@ footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;fl
       </ul>
     </div>
   </div>
-  <p class="pricenote">Harga ikut saiz kedai. WhatsApp saya, saya bagi harga.</p>
+  <p class="pricenote">Harga ikut keperluan kedai. WhatsApp saya, saya bagi harga.</p>
+  <p class="pilot-note">Lima kedai pertama dapat harga perintis. Harga ini tak bergantung pada ulasan.</p>
 </section>
 
-<section aria-labelledby="ulasan-h">
-  <h2 class="h2" id="ulasan-h">Ulasan pelanggan? Belum ada. Saya baru mula.</h2>
-  <div class="honest">
-    <p class="hand">Saya tak nak letak ulasan rekaan. Jadi 5 kedai pertama dapat <mark>harga perintis</mark>. Lepas siap, saya cuma minta satu ulasan jujur. Bagus ke tak, saya letak kat sini.</p>
-    <div class="slots">
-      <div class="slot"><b>Slot 1</b><span>kedai anda?</span></div>
-      <div class="slot"><b>Slot 2</b><span>masih kosong</span></div>
-      <div class="slot"><b>Slot 3</b><span>masih kosong</span></div>
-      <div class="slot"><b>Slot 4</b><span>masih kosong</span></div>
-      <div class="slot"><b>Slot 5</b><span>masih kosong</span></div>
+<section class="reviews-section" aria-labelledby="ulasan-h">
+  <p class="eyebrow">Maklum balas sebenar</p>
+  <h2 class="h2" id="ulasan-h">Belum ada ulasan pelanggan lagi</h2>
+  <div class="review-card">
+    <div class="review-empty">
+      <span class="review-label">Saya baru mula</span>
+      <h3>Belum ada ulasan untuk dipaparkan.</h3>
+      <p>Bila ada pelanggan, saya akan kongsi ulasan sebenar dengan izin mereka.</p>
+    </div>
+    <div class="review-action">
+      <p>Dah pernah guna servis saya? Kalau selesa, kongsi pengalaman jujur di WhatsApp. Saya minta izin dulu sebelum paparkan.</p>
+      <p class="review-note">Ulasan pilihan saja. Harga perintis tak bergantung pada ulasan.</p>
+      <a class="btn go" href="https://wa.me/60177717206?text=Salam%20Shaziq%2C%20saya%20dah%20guna%20servis%20Kedai%20Senang%20Dicari%20dan%20nak%20kongsi%20maklum%20balas%20jujur." target="_blank" rel="noopener">Kongsi pengalaman</a>
     </div>
   </div>
 </section>

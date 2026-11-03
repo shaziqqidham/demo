@@ -165,24 +165,99 @@ textarea{resize:vertical;min-height:64px}
 .rec{border:1px solid var(--go);border-radius:8px;padding:12px 16px;font-size:.95rem}
 footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between;font-size:.84rem;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.sign-face,.sign-strip,.logo,.poster-head{transition:none}.mini:active,.sendbtn:active,.links a:active,.links button:active,.step button:active,.swatches button:active{transform:none}}
+
+/* Layout refresh: one workspace with inputs beside the live shop preview */
+:root{
+  --paper:#F6F8F4; --card:#FFFFFF; --ink:#19372F; --muted:#5B7067; --line:#D9E3DC;
+  --frame:#C6D1CA; --marker:#D8F36B; --go:#147553; --go-ink:#FFFFFF; --soft:#EDF2EE; --bad:#A84032;
+  --shade:rgba(25,55,47,.10); --shade-strong:rgba(25,55,47,.14); --shop:#147553; --shop-ink:#FFFFFF;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#101A17; --card:#192722; --ink:#EDF4EF; --muted:#B0C0B7; --line:#30423A;
+  --frame:#40524A; --marker:#B9E45F; --go:#2CA579; --go-ink:#071710; --soft:#202F29; --bad:#E28672;
+  --shade:rgba(0,0,0,.38); --shade-strong:rgba(0,0,0,.48); --shop:#2CA579; --shop-ink:#071710; color-scheme:dark
+}}
+:root[data-theme="dark"]{
+  --paper:#101A17; --card:#192722; --ink:#EDF4EF; --muted:#B0C0B7; --line:#30423A;
+  --frame:#40524A; --marker:#B9E45F; --go:#2CA579; --go-ink:#071710; --soft:#202F29; --bad:#E28672;
+  --shade:rgba(0,0,0,.38); --shade-strong:rgba(0,0,0,.48); --shop:#2CA579; --shop-ink:#071710; color-scheme:dark
+}
+body{background:var(--paper)}
+.wrap{max-width:1160px;padding-block:20px 56px}
+.demo-nav{position:sticky;top:0;z-index:10;background:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+.demo-nav .brand{font-weight:800;letter-spacing:-.03em;text-decoration:none}
+.demo-nav .nav-back{font-weight:700;color:var(--muted);text-underline-offset:4px}
+.demo-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.55fr);gap:28px;align-items:end;padding-block:42px 24px}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.08em;color:var(--go);margin:0 0 8px}
+.demo-intro h1{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.035em;max-width:16ch}
+.demo-intro .lede{color:var(--muted);margin-top:12px;max-width:52ch}
+.privacy-note{background:var(--soft);border-radius:16px;padding:18px 20px;color:var(--muted);font-size:.9rem}
+.privacy-note b{display:block;color:var(--ink);font-size:.92rem;margin-bottom:4px}
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:24px;align-items:start}
+.builder .editor{grid-column:1;grid-row:1;margin:0;border-radius:18px;box-shadow:0 10px 28px var(--shade);overflow:hidden}
+.builder .sign{grid-column:2;grid-row:1;margin:0;position:sticky;top:88px;border-radius:14px;background:var(--frame);box-shadow:0 14px 32px var(--shade-strong)}
+.sign-face{border-radius:8px}
+.sign-name{font-family:var(--body);font-weight:800;text-transform:none;letter-spacing:-.035em;line-height:1.05}
+.sign-strip{font-family:var(--body);font-weight:700;font-size:clamp(.9rem,2vw,1.05rem)}
+.editor>summary{min-height:64px}
+.editor>summary b{font-size:1.05rem}
+.editor>summary span{flex-basis:100%}
+.ed-body{padding:20px}
+input[type=text],input[type=tel],input[type=date],textarea{border-radius:10px;padding:10px 12px}
+.mini{border-radius:10px}
+.tabs{margin-top:44px;border:1px solid var(--line);border-radius:14px;padding:5px;background:var(--soft);gap:4px}
+.tabs button{border:0;border-radius:10px;margin:0;padding:11px 16px}
+.tabs button[aria-selected="true"]{background:var(--card);color:var(--ink);box-shadow:0 2px 10px var(--shade)}
+.panel{margin-top:24px;gap:clamp(24px,5vw,56px)}
+.explain{max-width:56ch;padding-top:12px}
+.explain h2{font-size:clamp(1.55rem,3.4vw,2.15rem)}
+.phone{border:1px solid var(--line);border-radius:22px;padding:22px 18px;box-shadow:0 14px 32px var(--shade)}
+.poster{border-radius:18px;box-shadow:0 14px 32px var(--shade-strong)}
+.audit{border-radius:18px;box-shadow:0 10px 28px var(--shade)}
+.sendbtn{border-radius:12px}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line)}
+@media(max-width:820px){
+  .demo-intro{grid-template-columns:minmax(0,1fr);gap:16px;padding-block:32px 20px}
+  .builder{grid-template-columns:minmax(0,1fr)}
+  .builder .editor,.builder .sign{grid-column:1;grid-row:auto;position:static}
+  .builder .sign{order:2}
+  .tabs{margin-top:32px}
+}
+@media(max-width:560px){
+  .wrap{padding-top:12px}
+  .demo-nav{position:relative}
+  .demo-nav .nav-back{font-size:.88rem}
+  .tabs{border:0;background:transparent;padding:0;gap:4px}
+  .tabs button{padding:10px 12px}
+  .panel{gap:20px}
+  .phone{max-width:100%}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <h1>Tengok kedai anda dalam satu minit</h1>
-  <p>Demo oleh A. Shaziq Idham. <a href="./">Tentang servis ni</a></p>
+<header class="demo-nav">
+  <a class="brand" href="./">Kedai Senang Dicari</a>
+  <a class="nav-back" href="./">Tentang servis ni</a>
 </header>
 
-<section class="sign" aria-label="Papan tanda kedai">
-  <div class="sign-face">
-    <p class="sign-name" id="s-name">Kek Lapis Mak Jah</p>
-    <p class="sign-tag" id="s-tag">Kek lapis Sarawak dan kuih raya buatan sendiri</p>
-    <p class="sign-area" id="s-area">Kota Tinggi, Johor</p>
+<section class="demo-intro" aria-labelledby="demo-title">
+  <div>
+    <p class="eyebrow">Demo interaktif</p>
+    <h1 id="demo-title">Tengok kedai anda dalam satu minit</h1>
+    <p class="lede">Isi beberapa butiran. Hasilnya berubah terus dalam pratonton.</p>
   </div>
-  <div class="sign-strip"><span id="s-tel">Tel / WhatsApp  017-771 7206</span><span id="s-hrs">Selasa hingga Ahad, 9 pagi hingga 6 petang</span></div>
+  <aside class="privacy-note">
+    <b>Contoh kedai</b>
+    <p>Butiran yang anda taip disimpan dalam browser ini. Butang order hanya buka mesej WhatsApp untuk anda semak.</p>
+  </aside>
 </section>
 
+<main class="demo-main">
+
+<div class="builder">
 <details class="editor" id="editor" open>
   <summary><b>Tukar ke kedai anda</b><span>Sekarang tunjuk kedai contoh, rekaan je</span></summary>
   <div class="ed-body">
@@ -196,6 +271,16 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display
   </div>
 </details>
 
+<section class="sign" aria-label="Papan tanda kedai">
+  <div class="sign-face">
+    <p class="sign-name" id="s-name">Kek Lapis Mak Jah</p>
+    <p class="sign-tag" id="s-tag">Kek lapis Sarawak dan kuih raya buatan sendiri</p>
+    <p class="sign-area" id="s-area">Kota Tinggi, Johor</p>
+  </div>
+  <div class="sign-strip"><span id="s-tel">Tel / WhatsApp  017-771 7206</span><span id="s-hrs">Selasa hingga Ahad, 9 pagi hingga 6 petang</span></div>
+</section>
+</div>
+
 <div class="tabs" role="tablist" aria-label="Bahagian demo">
   <button type="button" role="tab" id="t-bio" aria-controls="p-bio" aria-selected="true">Link bio</button>
   <button type="button" role="tab" id="t-order" aria-controls="p-order" aria-selected="false">Order WhatsApp</button>
@@ -207,7 +292,7 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display
   <div class="explain">
     <h2>Satu link, semua ada</h2>
     <p>Letak kat bio TikTok, Instagram, Facebook. Orang nampak waktu buka, katalog, lokasi, lepas tu terus tekan WhatsApp.</p>
-    <p class="saywrap"><span class="say">“Orang tengok video kedai kat TikTok, tekan link ni, terus order.”</span></p>
+    <p class="saywrap"><span class="say">Pelanggan nampak maklumat kedai, kemudian terus tekan untuk hubungi.</span></p>
   </div>
   <div class="phone"><div class="bio">
     <div class="logo" id="b-logo">KL</div>
@@ -227,7 +312,7 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display
   <div class="explain">
     <h2>Order sampai dah lengkap</h2>
     <p>Pelanggan pilih barang, kuantiti dan tarikh ambil. Mesej order yang kemas, siap dengan jumlah, terus masuk WhatsApp kedai.</p>
-    <p class="saywrap"><span class="say">“Tak payah jawab ‘harga berapa?’ satu-satu lagi.”</span></p>
+    <p class="saywrap"><span class="say">Borang susun barang, kuantiti dan tarikh. Anda semak mesej sebelum hantar.</span></p>
     <p class="help">Cuba sekarang: pilih barang, tekan Hantar. WhatsApp buka dengan mesej siap taip.</p>
   </div>
   <div class="phone order">
@@ -249,7 +334,7 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display
   <div class="explain">
     <h2>Poster QR untuk kaunter</h2>
     <p>Tampal kat kaunter, meja atau pintu. Orang imbas, terus dapat chat WhatsApp kedai. Tak payah simpan nombor dulu.</p>
-    <p class="saywrap"><span class="say">“Cuba imbas guna telefon anda sekarang.”</span></p>
+    <p class="saywrap"><span class="say">Imbas kod untuk buka WhatsApp atau Google Maps.</span></p>
     <div class="qmode" role="group" aria-label="Apa yang QR buka">
       <button type="button" id="q-wa" aria-pressed="true">Buka WhatsApp kedai</button>
       <button type="button" id="q-map" aria-pressed="false">Buka Google Maps</button>
@@ -280,11 +365,11 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display
     <div><b>Yang perlu dibaiki</b><ul class="todo" id="todo"></ul></div>
     <div class="rec" id="rec"></div>
   </div>
-</div>
+</main>
 
 <footer>
   <span>Demo oleh A. Shaziq Idham, Johor Bahru</span>
-  <span>Kedai contoh ni rekaan. Apa yang anda taip kekal kat telefon ni je.</span>
+  <span>Kedai contoh ni rekaan. Butiran kekal dalam browser ini. WhatsApp buka bila anda tekan butang order.</span>
 </footer>
 </div>
 
