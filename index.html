@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kedai Senang Dicari</title>
+<meta name="description" content="Saya setup Google Maps dan WhatsApp kedai anda di Johor Bahru, supaya pelanggan senang jumpa.">
+<meta property="og:title" content="Kedai Senang Dicari">
+<meta property="og:description" content="Saya setup Google Maps dan WhatsApp kedai anda di JB, supaya pelanggan senang jumpa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Hallmark · checked: 2026-11-03 · genre: playful (inferred)
+ * floor: 0 FAIL · fixed: 34, 48, 54, 55a, 63, 67, 7a, 7b, 19, 24b, 26b, 41, 46a, F1, F21 · structural: 2 printed (44b, 58)
+ * reworded "paling ramai pilih" to "saya cadangkan" · 46a: no customers yet
+ * built: the project · redesign: polish, copy rewritten in the owner's voice at his request · v2.0.0 */
+/* Hallmark · dropped #hubungi, https://claude.ai/artifact/GMtXJvPTgQi1dKcwrgEML9 · the hero button now opens WhatsApp directly and the demo moved to the GitHub Pages site */
+/* Layout: a phone camera roll, casual notes and screenshots in one left-aligned column that opens to a grid on desktop */
+:root{
+  --paper:#FBFBF8; --card:#FFFFFF; --ink:#16233F; --muted:#5B6478;
+  --line:#DCDFE6; --marker:#FFE45C; --on-marker:#16233F; --pick-bg:#FFE45C; --pick-ink:#16233F; --go:#0B7A54; --go-ink:#FFFDF7;
+  --tape:rgba(255,228,92,.75); --shade:rgba(22,35,63,.10); --soft:#EEF1F6; --bad:#B4432F;
+  --ph-a1:#F2C46D; --ph-a2:#C97B3D; --ph-b1:#BFD9C5; --ph-b2:#6FA387; --ph-c1:#E9D3B8; --ph-c2:#B98F67;
+  --ph-d1:#E8A3A3; --ph-d2:#B85C5C; --ph-e1:#C9874B; --ph-e2:#7A4A23; --ph-f1:#9B5C7A; --ph-f2:#5A2E45;
+  --ph-g1:#E8C27A; --ph-g2:#B98436; --ph-h1:#7FB3E0; --ph-h2:#2F6FA8; --ph-ink:#16233F; --logo-ink:#FFFDF7;
+  --hand:"Kalam","Comic Neue","Segoe Print",cursive;
+  --body:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#11151D; --card:#1A2030; --ink:#E9ECF3; --muted:#A3ABBD;
+  --line:#2C3448; --marker:#8A7A1E; --on-marker:#FFF6C2; --pick-bg:#D9C24A; --pick-ink:#16233F; --go:#22B07E; --go-ink:#06140E;
+  --tape:rgba(214,190,60,.55); --shade:rgba(0,0,0,.45); --soft:#222A3C; --bad:#E07B66; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11151D; --card:#1A2030; --ink:#E9ECF3; --muted:#A3ABBD;
+  --line:#2C3448; --marker:#8A7A1E; --on-marker:#FFF6C2; --pick-bg:#D9C24A; --pick-ink:#16233F; --go:#22B07E; --go-ink:#06140E;
+  --tape:rgba(214,190,60,.55); --shade:rgba(0,0,0,.45); --soft:#222A3C; --bad:#E07B66; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{text-wrap:balance;line-height:1.15;margin:0;overflow-wrap:break-word;min-width:0}
+p{margin:0}
+mark{background:linear-gradient(transparent 55%,var(--marker) 55%);color:inherit;padding:0 .1em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--go);outline-offset:4px;border-radius:8px}
+section{padding-block:56px;border-top:1px dashed var(--line)}
+.h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;letter-spacing:-.02em}
+.lede{color:var(--muted);max-width:60ch;margin-top:12px}
+
+/* hero */
+.hero{padding-block:48px 56px;display:grid;gap:40px;grid-template-columns:minmax(0,1fr);align-items:center;border-top:0}
+@media(min-width:860px){.hero{grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr)}}
+.hero h1{font-size:clamp(2.2rem,6.5vw,3.6rem);font-weight:800;letter-spacing:-.03em}
+.hero p.sub{font-size:1.15rem;color:var(--muted);max-width:44ch;margin-top:20px}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 1rem var(--body);padding:12px 20px;border-radius:999px;text-decoration:none;border:2px solid var(--ink);cursor:pointer;background:transparent;color:var(--ink);transition:transform .15s ease}
+.btn.go{background:var(--go);color:var(--go-ink);border-color:var(--go)}
+.btn:hover{transform:translateY(-1px)}
+.btn:active{transform:translateY(1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.textlink{font-weight:700;color:var(--muted);text-underline-offset:4px}
+.textlink:hover{color:var(--ink)}
+.note-card{background:var(--card);color:var(--ink);border-radius:16px;padding:28px 24px;box-shadow:0 12px 32px var(--shade);transform:rotate(1.5deg);position:relative;max-width:420px;justify-self:center;width:100%}
+.note-card::before{content:"";position:absolute;top:-12px;left:38%;width:88px;height:24px;background:var(--tape);transform:rotate(-4deg)}
+.avatar{width:64px;height:64px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font:800 1.4rem var(--body);border:3px solid var(--marker)}
+.note-card .hand{font-family:var(--hand);font-size:1.35rem;line-height:1.35;margin-top:16px}
+.note-card .sig{font-family:var(--hand);font-weight:700;font-size:1.5rem;margin-top:16px}
+.note-card small{display:block;color:var(--muted);font-size:.88rem}
+
+/* story */
+.story{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);margin-top:32px}
+@media(min-width:760px){.story{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.frame{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.bars{display:flex;gap:4px}.bars i{flex:1;height:4px;border-radius:4px;background:var(--line)}.bars i.on{background:var(--ink)}
+.frame .step{font-size:.88rem;color:var(--muted)}
+.frame h3{font-size:1.15rem;font-weight:700}
+.frame .bubble{background:var(--soft);border-radius:16px;padding:12px 16px;font-size:.95rem}
+.warn{margin-top:24px;font-family:var(--hand);font-size:1.3rem;max-width:56ch}
+
+/* examples */
+.demos{display:grid;gap:32px;grid-template-columns:minmax(0,1fr);margin-top:32px}
+@media(min-width:900px){.demos{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}}
+.demo{min-width:0;display:flex;flex-direction:column;gap:16px;align-items:center}
+.demo .cap{text-align:center;max-width:32ch}
+.demo .cap h3{font-size:1.15rem;font-weight:700}
+.demo .cap p{color:var(--muted);font-size:.95rem;margin-top:4px}
+.sample{font-size:.85rem;font-weight:600;color:var(--muted);border:1.5px dashed var(--muted);border-radius:999px;padding:4px 12px}
+.phone{width:100%;max-width:310px;background:var(--card);border:8px solid var(--ink);border-radius:32px;padding:16px 12px 20px;box-shadow:0 12px 32px var(--shade)}
+.searchbar{display:flex;align-items:center;gap:8px;background:var(--soft);border-radius:999px;padding:8px 16px;font-size:.88rem;color:var(--muted)}
+.pin{width:12px;height:12px;border-radius:50% 50% 50% 0;background:var(--bad);transform:rotate(-45deg);flex:none}
+.listing{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.listing .ttl{font-size:1.15rem;font-weight:800}
+.meta{font-size:.85rem;color:var(--muted)}
+.open{color:var(--go);font-weight:700}
+.photos{display:grid;grid-template-columns:2fr 1fr;grid-template-rows:64px 64px;gap:4px;border-radius:12px;overflow:hidden}
+.photos span{display:grid;place-items:center;font-size:.72rem;font-weight:700;color:var(--ph-ink);text-align:center;padding:4px}
+.photos span:nth-child(1){grid-row:span 2;background:linear-gradient(135deg,var(--ph-a1),var(--ph-a2))}
+.photos span:nth-child(2){background:linear-gradient(135deg,var(--ph-b1),var(--ph-b2))}
+.photos span:nth-child(3){background:linear-gradient(135deg,var(--ph-c1),var(--ph-c2))}
+.actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.actions span{font-size:.76rem;font-weight:700;text-align:center;border:1.5px solid var(--line);border-radius:999px;padding:4px 2px}
+.actions span.wa{background:var(--go);color:var(--go-ink);border-color:var(--go)}
+.actions span.no{color:var(--bad);border-style:dashed;border-color:var(--bad)}
+.empty{border:1.5px dashed var(--bad);color:var(--bad);border-radius:12px;padding:12px;font-size:.85rem;text-align:center}
+.missing{color:var(--bad);font-weight:600}
+.toggle{display:inline-flex;background:var(--soft);border-radius:999px;padding:4px;gap:4px}
+.toggle button{font:700 .9rem var(--body);border:0;background:transparent;color:var(--muted);padding:8px 16px;border-radius:999px;cursor:pointer}
+.toggle button:active{transform:translateY(1px)}
+.toggle button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 2px 8px var(--shade)}
+.chathead{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.chathead .dot{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--ph-d1),var(--ph-d2));flex:none}
+.chathead b{display:block;font-size:.92rem}.chathead small{font-size:.76rem;color:var(--muted)}
+.chat{display:flex;flex-direction:column;gap:8px;margin-top:12px;font-size:.86rem}
+.msg{max-width:88%;padding:8px 12px;border-radius:16px;line-height:1.4}
+.msg.in{background:var(--soft);align-self:flex-end;border-bottom-right-radius:4px}
+.msg.out{background:var(--card);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
+.msg .tag{display:block;font-size:.76rem;font-weight:700;color:var(--go)}
+.cat{display:flex;flex-direction:column;margin-top:4px}
+.item{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.item i{width:40px;height:40px;border-radius:8px;flex:none}
+.item:nth-child(1) i{background:linear-gradient(135deg,var(--ph-e1),var(--ph-e2))}
+.item:nth-child(2) i{background:linear-gradient(135deg,var(--ph-f1),var(--ph-f2))}
+.item:nth-child(3) i{background:linear-gradient(135deg,var(--ph-g1),var(--ph-g2))}
+.item b{display:block;font-size:.84rem;line-height:1.25}.item span{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.chips span{font-size:.76rem;font-weight:700;background:var(--soft);border-radius:999px;padding:4px 12px}
+.bio{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.bio .logo{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--ph-h1),var(--ph-h2));display:grid;place-items:center;color:var(--logo-ink);font:800 1.3rem var(--body)}
+.bio .ttl{font-size:1.05rem;font-weight:800}
+.bio p{font-size:.84rem;color:var(--muted)}
+.links{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:4px}
+.links span{display:block;border:2px solid var(--ink);border-radius:12px;padding:8px;font-size:.86rem;font-weight:700}
+.links span.wa{background:var(--go);border-color:var(--go);color:var(--go-ink)}
+
+/* packages */
+.pkgs{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);margin-top:32px}
+@media(min-width:820px){.pkgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pkg{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.pkg.pick{border:2px solid var(--ink);position:relative}
+.pick-note{position:absolute;top:-16px;right:16px;font-family:var(--hand);font-weight:700;font-size:1rem;background:var(--pick-bg);color:var(--pick-ink);padding:0 12px;border-radius:4px;transform:rotate(-2deg)}
+.pkg h3{font-size:1.3rem;font-weight:800}
+.pkg .for{font-family:var(--hand);font-size:1.15rem;color:var(--muted)}
+.pkg ul{margin:0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px;font-size:.95rem}
+.pkg .plus{font-size:.88rem;font-weight:700;color:var(--muted)}
+.pricenote{margin-top:24px;font-family:var(--hand);font-size:1.3rem}
+
+/* reviews */
+.honest{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);margin-top:28px;align-items:start}
+@media(min-width:860px){.honest{grid-template-columns:minmax(0,1fr) minmax(0,1.2fr)}}
+.honest .hand{font-family:var(--hand);font-size:1.45rem;line-height:1.4}
+.slots{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(148px,1fr))}
+.slot{border:2px dashed var(--line);border-radius:16px;padding:16px;min-height:116px;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+.slot b{font-size:.88rem;color:var(--muted)}
+.slot span{font-family:var(--hand);font-size:1.15rem;color:var(--muted)}
+
+/* contact */
+.contact{text-align:center;padding-block:64px 72px}
+.contact .h2{font-size:clamp(1.8rem,5vw,2.8rem);max-width:22ch;margin-inline:auto}
+.numbox{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;margin-top:24px;background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:16px 20px}
+.numbox .num{font:800 1.5rem var(--body);font-variant-numeric:tabular-nums;user-select:all}
+.copied{display:block;margin-top:12px;font-family:var(--hand);font-size:1.1rem;color:var(--go);min-height:1.5em}
+footer{padding-block:24px 36px;border-top:1px dashed var(--line);display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;color:var(--muted);font-size:.88rem}
+@media (prefers-reduced-motion:reduce){.btn,.toggle button{transition:none}.btn:hover,.btn:active,.toggle button:active{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <h1>Kedai anda ada. Tapi pelanggan jumpa ke?</h1>
+    <p class="sub">Saya setup Google Maps dan WhatsApp kedai, supaya pelanggan senang jumpa anda.</p>
+    <div class="cta-row">
+      <a class="btn go" href="https://wa.me/60177717206?text=Salam%20Shaziq%2C%20saya%20nak%20tanya%20pasal%20Kedai%20Senang%20Dicari." target="_blank" rel="noopener">WhatsApp saya</a>
+      <a class="btn" href="demo.html">Cuba demo</a>
+      <a class="textlink" href="#contoh">Tengok contoh</a>
+    </div>
+  </div>
+  <aside class="note-card" aria-label="Nota daripada Shaziq">
+    <div class="avatar" aria-hidden="true">SI</div>
+    <p class="hand">“Minggu ni saya semak 39 kedai di JB kat Google Maps. Ramai tiada gambar, ada yang tiada nombor, satu pusat tuisyen tulis buka 24 jam. Pelanggan baru tengok Maps dulu, baru datang.”</p>
+    <p class="sig">A. Shaziq Idham</p>
+    <small>Orang JB. 5 tahun jual kereta sebelum ni, jadi saya faham macam mana pelanggan pilih kedai.</small>
+  </aside>
+</header>
+
+<section aria-labelledby="cara">
+  <h2 class="h2" id="cara">Macam ni pelanggan cari kedai sekarang</h2>
+  <div class="story">
+    <div class="frame">
+      <div class="bars" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+      <p class="step">Langkah 1</p>
+      <h3>Cari di Google Maps</h3>
+      <p class="bubble">“kopitiam dekat sini”<br>“kedai kek Kota Tinggi”</p>
+    </div>
+    <div class="frame">
+      <div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
+      <p class="step">Langkah 2</p>
+      <h3>Tengok gambar, waktu buka, arah</h3>
+      <p class="bubble">“Buka tak sekarang? Parking senang tak?”</p>
+    </div>
+    <div class="frame">
+      <div class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      <p class="step">Langkah 3</p>
+      <h3>Tekan WhatsApp, terus tanya</h3>
+      <p class="bubble">“Salam, kek lapis prune ada lagi?”</p>
+    </div>
+  </div>
+  <p class="warn">Satu langkah rosak (tiada gambar, waktu salah, nombor lama) dan pelanggan terus pilih kedai sebelah.</p>
+</section>
+
+<section id="contoh" aria-labelledby="demo-h">
+  <h2 class="h2" id="demo-h">Contoh kerja saya</h2>
+  <p class="lede">Kedai dalam contoh ni rekaan. Bila siap, kedai anda nampak macam ni.</p>
+  <div class="cta-row">
+    <a class="btn go" href="demo.html">Cuba demo</a>
+    <p class="lede" style="margin-top:0">Nak tengok dengan nama kedai anda sendiri? Taip, terus jadi.</p>
+  </div>
+
+  <div class="demos">
+    <div class="demo">
+      <span class="sample">Contoh rekaan</span>
+      <div class="toggle" role="group" aria-label="Tukar paparan sebelum dan selepas">
+        <button type="button" id="btn-before" aria-pressed="false">Sebelum</button>
+        <button type="button" id="btn-after" aria-pressed="true">Selepas</button>
+      </div>
+      <div class="phone">
+        <div class="searchbar"><span class="pin" aria-hidden="true"></span>kopitiam skudai</div>
+        <div class="listing" id="after-view">
+          <div class="photos" aria-hidden="true"><span>roti bakar dan kopi</span><span>ruang makan</span><span>depan kedai</span></div>
+          <p class="ttl">Kopitiam Pak Long</p>
+          <p class="meta">Kedai kopi, Taman Universiti</p>
+          <p class="meta"><span class="open">Buka sekarang</span>, tutup 11 malam</p>
+          <div class="actions"><span>Arah</span><span>Hubungi</span><span class="wa">WhatsApp</span></div>
+          <p class="meta">Menu, gambar dan waktu dikemas kini</p>
+        </div>
+        <div class="listing" id="before-view" hidden>
+          <div class="empty">Tiada gambar</div>
+          <p class="ttl">Kopitiam Pak Long</p>
+          <p class="meta missing">Tiada kategori</p>
+          <p class="meta missing">Waktu buka tidak diketahui</p>
+          <div class="actions"><span>Arah</span><span class="no">Tiada</span><span class="no">Tiada</span></div>
+          <p class="meta missing">Nombor lama, tiada butang WhatsApp</p>
+        </div>
+      </div>
+      <div class="cap">
+        <h3>Google Maps</h3>
+        <p>Gambar sebenar, waktu tepat, kategori betul, ada butang WhatsApp.</p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <span class="sample">Contoh rekaan</span>
+      <div class="phone">
+        <div class="chathead"><span class="dot" aria-hidden="true"></span><div><b>Kek Lapis Mak Jah</b><small>Akaun perniagaan, Kota Tinggi</small></div></div>
+        <div class="chat">
+          <p class="msg in">Salam, ada kek lapis untuk raya?</p>
+          <div class="msg out"><span class="tag">Balasan automatik</span>Waalaikumussalam! Terima kasih mesej Kek Lapis Mak Jah. Ni katalog kami. Order 3 hari awal ya.</div>
+          <div class="cat">
+            <div class="item"><i aria-hidden="true"></i><div><b>Kek Lapis Sarawak Original</b><span>RM45 sekilo</span></div></div>
+            <div class="item"><i aria-hidden="true"></i><div><b>Kek Lapis Prune</b><span>RM55 sekilo</span></div></div>
+            <div class="item"><i aria-hidden="true"></i><div><b>Kuih Raya Balang</b><span>RM25 sebalang</span></div></div>
+          </div>
+          <div class="chips" aria-label="Label pesanan"><span>Order baru</span><span>Dah bayar</span><span>Siap ambil</span></div>
+        </div>
+      </div>
+      <div class="cap">
+        <h3>WhatsApp Business</h3>
+        <p>Katalog, mesej auto dan label order. Tak ada order yang tercicir.</p>
+      </div>
+    </div>
+
+    <div class="demo">
+      <span class="sample">Contoh rekaan</span>
+      <div class="phone">
+        <div class="bio">
+          <div class="logo" aria-hidden="true">TC</div>
+          <p class="ttl">Tuisyen Cemerlang Tebrau</p>
+          <p>Darjah 4 hingga 6, Tingkatan 1 hingga 3<br>Taman Daya</p>
+          <div class="links">
+            <span>Jadual kelas 2027</span>
+            <span>Subjek dan yuran</span>
+            <span>Lokasi di Maps</span>
+            <span class="wa">WhatsApp untuk daftar</span>
+          </div>
+          <p>Siap dengan poster QR untuk kaunter</p>
+        </div>
+      </div>
+      <div class="cap">
+        <h3>Link bio</h3>
+        <p>Satu link untuk bio TikTok dan Instagram. Terus ke WhatsApp.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="pakej-h">
+  <h2 class="h2" id="pakej-h">Tiga pakej, pilih ikut kedai anda</h2>
+  <div class="pkgs">
+    <div class="pkg">
+      <h3>Senang Dicari</h3>
+      <p class="for">kedai yang belum ada di Maps</p>
+      <ul>
+        <li>Tuntut atau buat listing Google Maps</li>
+        <li>Kategori, alamat dan waktu buka yang betul</li>
+        <li>Sampai 10 gambar kedai dan produk</li>
+        <li>Butang WhatsApp dan nombor terkini</li>
+        <li>Cara minta ulasan dari pelanggan</li>
+      </ul>
+    </div>
+    <div class="pkg pick">
+      <span class="pick-note">saya cadangkan</span>
+      <h3>Senang Order</h3>
+      <p class="for">kedai yang banyak order di WhatsApp</p>
+      <p class="plus">Semua dalam Senang Dicari, tambah:</p>
+      <ul>
+        <li>Setup WhatsApp Business</li>
+        <li>Katalog produk dengan harga</li>
+        <li>Mesej sapaan dan balasan auto</li>
+        <li>Label untuk jejak order</li>
+      </ul>
+    </div>
+    <div class="pkg">
+      <h3>Lengkap</h3>
+      <p class="for">kedai yang aktif di TikTok atau Instagram</p>
+      <p class="plus">Semua dalam Senang Order, tambah:</p>
+      <ul>
+        <li>Halaman link bio</li>
+        <li>Poster QR untuk kaunter dan meja</li>
+        <li>Semakan semula lepas sebulan</li>
+      </ul>
+    </div>
+  </div>
+  <p class="pricenote">Harga ikut saiz kedai. WhatsApp saya, saya bagi harga.</p>
+</section>
+
+<section aria-labelledby="ulasan-h">
+  <h2 class="h2" id="ulasan-h">Ulasan pelanggan? Belum ada. Saya baru mula.</h2>
+  <div class="honest">
+    <p class="hand">Saya tak nak letak ulasan rekaan. Jadi 5 kedai pertama dapat <mark>harga perintis</mark>. Lepas siap, saya cuma minta satu ulasan jujur. Bagus ke tak, saya letak kat sini.</p>
+    <div class="slots">
+      <div class="slot"><b>Slot 1</b><span>kedai anda?</span></div>
+      <div class="slot"><b>Slot 2</b><span>masih kosong</span></div>
+      <div class="slot"><b>Slot 3</b><span>masih kosong</span></div>
+      <div class="slot"><b>Slot 4</b><span>masih kosong</span></div>
+      <div class="slot"><b>Slot 5</b><span>masih kosong</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="hubungi" aria-labelledby="hubungi-h">
+  <h2 class="h2" id="hubungi-h">Hantar nama kedai anda. Saya semak Maps anda, percuma.</h2>
+  <div class="numbox">
+    <span class="num" id="wa-num">017-771 7206</span>
+    <a class="btn go" href="https://wa.me/60177717206?text=Salam%20Shaziq%2C%20boleh%20semak%20Google%20Maps%20kedai%20saya%3F" target="_blank" rel="noopener">Buka WhatsApp</a>
+    <button class="btn" type="button" id="copy-btn">Salin nombor</button>
+  </div>
+  <span class="copied" id="copy-msg" aria-live="polite"></span>
+</section>
+
+<footer>
+  <span>A. Shaziq Idham, Johor Bahru</span>
+  <span>Kedai dalam contoh ialah rekaan.</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var b=document.getElementById('btn-before'), a=document.getElementById('btn-after');
+  var bv=document.getElementById('before-view'), av=document.getElementById('after-view');
+  function show(after){ av.hidden=!after; bv.hidden=after; a.setAttribute('aria-pressed',String(after)); b.setAttribute('aria-pressed',String(!after)); }
+  b.addEventListener('click',function(){show(false)});
+  a.addEventListener('click',function(){show(true)});
+  var btn=document.getElementById('copy-btn'), num=document.getElementById('wa-num'), msg=document.getElementById('copy-msg');
+  btn.addEventListener('click',function(){
+    var t=num.textContent.trim();
+    function fallback(){ var r=document.createRange(); r.selectNodeContents(num); var s=window.getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent='Nombor dipilih. Tekan salin kat telefon anda.'; }
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).then(function(){msg.textContent='Nombor disalin.';},fallback); } else { fallback(); } }catch(e){ fallback(); }
+  });
+})();
+</script>
+</body>
+</html>

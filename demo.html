@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Demo Kedai Anda</title>
+<meta name="description" content="Taip nama kedai anda dan tengok link bio, order WhatsApp dan poster QR kedai anda terus.">
+<meta property="og:title" content="Demo Kedai Anda">
+<meta property="og:description" content="Taip nama kedai anda, tengok hasilnya dalam satu minit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Kalam:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+/* Hallmark · checked: 2026-11-03 · genre: playful (inferred) · scope: app
+ * floor: 0 FAIL · fixed: 34, 48, 55a, 7a, 7b, 19, 24b, 26b, 3, 40, F1 · structural: none printed
+ * built: the project · redesign: polish, copy rewritten in the owner's voice at his request · v2.0.0 */
+/* Layout: the shop's own signboard leads and repaints as you type; a quiet editor and three phone-sized previews follow, left-aligned */
+:root{
+  --paper:#F5F6F8; --card:#FFFFFF; --ink:#16233F; --muted:#5B6478; --line:#D9DDE5;
+  --frame:#A9B0BC; --marker:#FFE45C; --go:#0B7A54; --go-ink:#FFFDF7; --soft:#ECEFF4; --bad:#B4432F;
+  --shade:rgba(22,35,63,.16); --shade-strong:rgba(22,35,63,.20);
+  --poster:#FCFCFA; --poster-ink:#16233F; --poster-muted:#5B6478;
+  --shop:#A84F4F; --shop-ink:#FFFDF7;
+  --sign:"Big Shoulders Display","Arial Narrow","Roboto Condensed",sans-serif;
+  --hand:"Kalam","Comic Neue","Segoe Print",cursive;
+  --body:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#0F131B; --card:#191F2C; --ink:#E9ECF3; --muted:#A3ABBD; --line:#2C3448;
+  --frame:#56607A; --marker:#8A7A1E; --go:#22B07E; --go-ink:#06140E; --soft:#222A3C; --bad:#E07B66;
+  --shade:rgba(0,0,0,.45); --shade-strong:rgba(0,0,0,.55); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0F131B; --card:#191F2C; --ink:#E9ECF3; --muted:#A3ABBD; --line:#2C3448;
+  --frame:#56607A; --marker:#8A7A1E; --go:#22B07E; --go-ink:#06140E; --soft:#222A3C; --bad:#E07B66;
+  --shade:rgba(0,0,0,.45); --shade-strong:rgba(0,0,0,.55); color-scheme:dark}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1000px;margin:0 auto;padding-block:24px 48px}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.15;overflow-wrap:break-word;min-width:0}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--go);outline-offset:2px;border-radius:8px}
+
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 16px}
+header h1{font-size:clamp(1.25rem,3.4vw,1.6rem);font-weight:800;letter-spacing:-.01em}
+header p{color:var(--muted);font-size:.92rem}
+header a{font-weight:700;text-underline-offset:4px}
+
+.sign{margin-top:16px;background:var(--frame);padding:8px;border-radius:8px;box-shadow:0 16px 40px var(--shade-strong)}
+.sign-face{background:var(--shop);color:var(--shop-ink);border-radius:4px;padding:clamp(20px,4vw,36px) clamp(20px,4vw,36px) clamp(16px,3vw,28px);transition:background-color .35s ease,color .35s ease}
+.sign-name{font-family:var(--sign);font-weight:900;text-transform:uppercase;font-size:clamp(2.6rem,11vw,6rem);line-height:1;letter-spacing:.005em;overflow-wrap:break-word;min-width:0}
+.sign-tag{font-weight:700;font-size:clamp(1rem,2.6vw,1.3rem);margin-top:12px;max-width:44ch}
+.sign-area{font-weight:500;font-size:.95rem;opacity:.9;margin-top:4px}
+.sign-strip{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 20px;background:var(--shop-ink);color:var(--shop);border-radius:0 0 4px 4px;margin-top:4px;padding:12px clamp(20px,4vw,36px);font-family:var(--sign);font-weight:700;font-size:clamp(1.1rem,3.2vw,1.5rem);letter-spacing:.02em;transition:background-color .35s ease,color .35s ease}
+.sign-strip span{min-width:0}
+
+.editor{margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.editor>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 16px}
+.editor>summary::-webkit-details-marker{display:none}
+.editor>summary b{font-size:1.02rem}
+.editor>summary span{font-size:.88rem;color:var(--muted)}
+.editor[open]>summary{border-bottom:1px solid var(--line)}
+.ed-body{padding:16px 20px 20px;display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:720px){.ed-body{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field.full{grid-column:1/-1}
+label,.flabel{font-size:.86rem;font-weight:700}
+input[type=text],input[type=tel],input[type=date],textarea{font:500 1rem var(--body);color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;width:100%}
+input:focus,textarea:focus{border-color:var(--ink);outline:none}
+textarea{resize:vertical;min-height:64px}
+.help{font-size:.82rem;color:var(--muted)}
+.swatches{display:flex;gap:12px;flex-wrap:wrap}
+.swatches button{width:40px;height:40px;border-radius:8px;border:3px solid var(--card);box-shadow:0 0 0 1.5px var(--line);cursor:pointer}
+.swatches button:active{transform:scale(.96)}
+.swatches button[aria-pressed="true"]{box-shadow:0 0 0 3px var(--ink)}
+.prows{display:flex;flex-direction:column;gap:8px}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 92px 40px;gap:8px}
+.mini{font:700 .86rem var(--body);border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer}
+.mini:hover{border-color:var(--ink)}
+.mini:active{transform:translateY(1px)}
+.mini:disabled{opacity:.5;cursor:not-allowed}
+.mini.x{padding:0;font-size:1.15rem}
+.ed-actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.tabs{display:flex;margin-top:32px;border-bottom:2px solid var(--line);overflow-x:auto}
+.tabs button{flex:none;font:700 .95rem var(--body);border:0;border-bottom:4px solid transparent;margin-bottom:-2px;background:none;color:var(--muted);padding:12px 16px;cursor:pointer}
+.tabs button:hover{color:var(--ink)}
+.tabs button:active{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--shop)}
+.panel{margin-top:24px;display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media(min-width:820px){.panel{grid-template-columns:minmax(0,1fr) 360px}}
+.explain{display:flex;flex-direction:column;gap:12px;min-width:0;max-width:52ch}
+.explain h2{font-size:clamp(1.5rem,3.6vw,2rem);font-weight:800;letter-spacing:-.015em}
+.explain p{color:var(--muted)}
+.say{font-family:var(--hand);font-size:1.3rem;line-height:1.35;color:var(--ink);background:linear-gradient(transparent 62%,var(--marker) 62%);display:inline;padding:0 .15em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.saywrap{margin-top:4px}
+
+.phone{width:100%;max-width:352px;justify-self:center;background:var(--card);border:8px solid var(--ink);border-radius:36px;padding:20px 16px;box-shadow:0 16px 40px var(--shade)}
+.bio{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center}
+.logo{width:80px;height:80px;border-radius:50%;background:var(--shop);color:var(--shop-ink);display:grid;place-items:center;font:900 1.9rem var(--sign);transition:background-color .35s ease}
+.bio h3{font-size:1.2rem;font-weight:800;margin-top:8px}
+.bio .tag{font-size:.9rem;color:var(--muted)}
+.bio .area{font-size:.84rem;color:var(--muted)}
+.bio .hrs{font-size:.84rem;background:var(--soft);border-radius:999px;padding:4px 12px;margin-top:4px}
+.links{display:flex;flex-direction:column;gap:8px;width:100%;margin-top:12px}
+.links a,.links button{display:block;width:100%;text-align:center;text-decoration:none;font:700 .95rem var(--body);border:2px solid var(--shop);color:var(--ink);background:transparent;border-radius:12px;padding:12px;cursor:pointer}
+.links a:active,.links button:active{transform:translateY(1px)}
+.links .primary{background:var(--shop);color:var(--shop-ink)}
+.links .off{opacity:.5;pointer-events:none}
+
+.order h3{font-size:1.1rem;font-weight:800}
+.olist{display:flex;flex-direction:column;margin-top:8px}
+.oitem{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0}
+.oitem b{display:block;font-size:.9rem;line-height:1.25}
+.oitem span{font-size:.84rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.step{display:flex;align-items:center;gap:4px}
+.step button{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--shop);background:transparent;color:var(--ink);font:800 1rem var(--body);cursor:pointer}
+.step button:active{transform:scale(.94)}
+.step output{min-width:1.5ch;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.ofields{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.ofields input,.ofields textarea{font-size:.9rem;padding:8px 12px}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;padding-top:8px;border-top:2px solid var(--ink);font-variant-numeric:tabular-nums}
+.total span:first-child{font-weight:700}
+.total span:last-child{font:900 1.6rem var(--sign)}
+.sendbtn{display:block;text-align:center;text-decoration:none;margin-top:12px;font:800 1rem var(--body);background:var(--go);color:var(--go-ink);border-radius:12px;padding:16px;border:0;width:100%;cursor:pointer}
+.sendbtn:active{transform:translateY(1px)}
+.sendbtn[aria-disabled="true"]{opacity:.45;pointer-events:none}
+.preview{white-space:pre-wrap;background:var(--soft);border-radius:8px;padding:12px;font-size:.88rem;overflow-wrap:anywhere;margin-top:8px}
+.warn{font-size:.84rem;color:var(--bad);font-weight:600;margin-top:8px}
+.ok{font-size:.84rem;color:var(--go);font-weight:600;min-height:1.2em;margin-left:8px}
+.peek{margin-top:12px}
+.peek summary{cursor:pointer;font-weight:700;font-size:.88rem}
+.peek .mini{margin-top:8px}
+
+/* the poster keeps its own paper in both themes so the QR always scans */
+.poster{width:100%;max-width:352px;justify-self:center;background:var(--poster);color:var(--poster-ink);border-radius:8px;overflow:hidden;box-shadow:0 16px 40px var(--shade-strong);text-align:center;display:flex;flex-direction:column;align-items:center}
+.poster-head{width:100%;background:var(--shop);color:var(--shop-ink);padding:20px 16px 16px;transition:background-color .35s ease}
+.poster-head h3{font-family:var(--sign);font-weight:900;text-transform:uppercase;font-size:2.1rem;line-height:1;overflow-wrap:break-word}
+.poster .scan{font-family:var(--hand);font-size:1.4rem;font-weight:700;margin-top:16px}
+#qr{width:200px;height:200px;display:grid;place-items:center;background:var(--poster);margin-top:8px}
+#qr img,#qr canvas{display:block;max-width:100%}
+.poster .phr{font-size:.88rem;color:var(--poster-muted);margin-top:12px}
+.poster small{font-size:.76rem;color:var(--poster-muted);padding:12px 0 16px}
+.qrnote{font-size:.88rem;color:var(--poster-muted);padding:20px 8px}
+.qmode{display:flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden;align-self:flex-start;max-width:100%}
+.qmode button{font:700 .86rem var(--body);border:0;background:var(--card);color:var(--muted);padding:8px 16px;cursor:pointer}
+.qmode button:active{color:var(--ink)}
+.qmode button+button{border-left:1.5px solid var(--line)}
+.qmode button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+
+.audit{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+.checks{display:flex;flex-direction:column}
+.checks label{display:flex;gap:12px;align-items:flex-start;font-weight:500;font-size:.95rem;border-bottom:1px solid var(--line);padding:12px 0;cursor:pointer}
+.checks label:last-child{border-bottom:0}
+.checks input{width:20px;height:20px;flex:none;margin-top:4px;accent-color:var(--go)}
+.score{display:flex;align-items:center;gap:16px}
+.ring{width:88px;height:88px;flex:none}
+.score b{font-size:1.15rem}
+.score p{font-size:.9rem;color:var(--muted)}
+.todo{margin:8px 0 0;padding-left:1.1em;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+.rec{border:1px solid var(--go);border-radius:8px;padding:12px 16px;font-size:.95rem}
+footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between;font-size:.84rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.sign-face,.sign-strip,.logo,.poster-head{transition:none}.mini:active,.sendbtn:active,.links a:active,.links button:active,.step button:active,.swatches button:active{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Tengok kedai anda dalam satu minit</h1>
+  <p>Demo oleh A. Shaziq Idham. <a href="./">Tentang servis ni</a></p>
+</header>
+
+<section class="sign" aria-label="Papan tanda kedai">
+  <div class="sign-face">
+    <p class="sign-name" id="s-name">Kek Lapis Mak Jah</p>
+    <p class="sign-tag" id="s-tag">Kek lapis Sarawak dan kuih raya buatan sendiri</p>
+    <p class="sign-area" id="s-area">Kota Tinggi, Johor</p>
+  </div>
+  <div class="sign-strip"><span id="s-tel">Tel / WhatsApp  017-771 7206</span><span id="s-hrs">Selasa hingga Ahad, 9 pagi hingga 6 petang</span></div>
+</section>
+
+<details class="editor" id="editor" open>
+  <summary><b>Tukar ke kedai anda</b><span>Sekarang tunjuk kedai contoh, rekaan je</span></summary>
+  <div class="ed-body">
+    <div class="field"><label for="f-name">Nama kedai</label><input type="text" id="f-name" autocomplete="off"></div>
+    <div class="field"><label for="f-tag">Ayat ringkas</label><input type="text" id="f-tag" autocomplete="off"></div>
+    <div class="field"><label for="f-area">Kawasan</label><input type="text" id="f-area" autocomplete="off"></div>
+    <div class="field"><label for="f-hours">Waktu buka</label><input type="text" id="f-hours" autocomplete="off"></div>
+    <div class="field full"><label for="f-wa">Nombor WhatsApp kedai</label><input type="tel" id="f-wa" inputmode="tel" placeholder="cth: 012-345 6789" autocomplete="off"><span class="help">Sekarang guna nombor Shaziq supaya anda boleh cuba. Tukar ke nombor kedai anda, order dan QR terus pergi ke situ.</span></div>
+    <div class="field full"><span class="flabel" id="sw-l">Warna papan tanda</span><div class="swatches" id="swatches" role="group" aria-labelledby="sw-l"></div></div>
+    <div class="field full"><span class="flabel">Produk dan harga (RM)</span><div class="prows" id="prows"></div><div class="ed-actions"><button type="button" class="mini" id="add-p">Tambah produk</button><button type="button" class="mini" id="reset">Balik ke contoh</button></div></div>
+  </div>
+</details>
+
+<div class="tabs" role="tablist" aria-label="Bahagian demo">
+  <button type="button" role="tab" id="t-bio" aria-controls="p-bio" aria-selected="true">Link bio</button>
+  <button type="button" role="tab" id="t-order" aria-controls="p-order" aria-selected="false">Order WhatsApp</button>
+  <button type="button" role="tab" id="t-qr" aria-controls="p-qr" aria-selected="false">Poster QR</button>
+  <button type="button" role="tab" id="t-audit" aria-controls="p-audit" aria-selected="false">Semak Google Maps</button>
+</div>
+
+<div class="panel" role="tabpanel" id="p-bio" aria-labelledby="t-bio">
+  <div class="explain">
+    <h2>Satu link, semua ada</h2>
+    <p>Letak kat bio TikTok, Instagram, Facebook. Orang nampak waktu buka, katalog, lokasi, lepas tu terus tekan WhatsApp.</p>
+    <p class="saywrap"><span class="say">“Orang tengok video kedai kat TikTok, tekan link ni, terus order.”</span></p>
+  </div>
+  <div class="phone"><div class="bio">
+    <div class="logo" id="b-logo">KL</div>
+    <h3 id="b-name">Kek Lapis Mak Jah</h3>
+    <p class="tag" id="b-tag">Kek lapis Sarawak dan kuih raya buatan sendiri</p>
+    <p class="area" id="b-area">Kota Tinggi, Johor</p>
+    <p class="hrs" id="b-hrs">Selasa hingga Ahad, 9 pagi hingga 6 petang</p>
+    <div class="links">
+      <a class="primary" id="b-wa" target="_blank" rel="noopener">Order di WhatsApp</a>
+      <button type="button" id="b-cat">Tengok katalog dan harga</button>
+      <a id="b-map" target="_blank" rel="noopener">Lokasi di Google Maps</a>
+    </div>
+  </div></div>
+</div>
+
+<div class="panel" role="tabpanel" id="p-order" aria-labelledby="t-order" hidden>
+  <div class="explain">
+    <h2>Order sampai dah lengkap</h2>
+    <p>Pelanggan pilih barang, kuantiti dan tarikh ambil. Mesej order yang kemas, siap dengan jumlah, terus masuk WhatsApp kedai.</p>
+    <p class="saywrap"><span class="say">“Tak payah jawab ‘harga berapa?’ satu-satu lagi.”</span></p>
+    <p class="help">Cuba sekarang: pilih barang, tekan Hantar. WhatsApp buka dengan mesej siap taip.</p>
+  </div>
+  <div class="phone order">
+    <h3 id="o-name">Kek Lapis Mak Jah</h3>
+    <div class="olist" id="olist"></div>
+    <div class="ofields">
+      <input type="text" id="o-cust" placeholder="Nama anda" autocomplete="off" aria-label="Nama pelanggan">
+      <input type="date" id="o-date" aria-label="Tarikh ambil">
+      <textarea id="o-note" placeholder="Nota, cth: tulis ‘Selamat Hari Jadi’" aria-label="Nota"></textarea>
+    </div>
+    <div class="total"><span>Jumlah</span><span id="o-total">RM0</span></div>
+    <a class="sendbtn" id="o-send" target="_blank" rel="noopener" aria-disabled="true">Hantar order di WhatsApp</a>
+    <p class="warn" id="o-warn"></p>
+    <details class="peek"><summary>Tengok mesej yang akan dihantar</summary><div class="preview" id="o-prev"></div><button type="button" class="mini" id="o-copy">Salin mesej</button><span class="ok" id="o-ok" aria-live="polite"></span></details>
+  </div>
+</div>
+
+<div class="panel" role="tabpanel" id="p-qr" aria-labelledby="t-qr" hidden>
+  <div class="explain">
+    <h2>Poster QR untuk kaunter</h2>
+    <p>Tampal kat kaunter, meja atau pintu. Orang imbas, terus dapat chat WhatsApp kedai. Tak payah simpan nombor dulu.</p>
+    <p class="saywrap"><span class="say">“Cuba imbas guna telefon anda sekarang.”</span></p>
+    <div class="qmode" role="group" aria-label="Apa yang QR buka">
+      <button type="button" id="q-wa" aria-pressed="true">Buka WhatsApp kedai</button>
+      <button type="button" id="q-map" aria-pressed="false">Buka Google Maps</button>
+    </div>
+    <p class="help">Nak cetak? Screenshot poster ni.</p>
+  </div>
+  <div class="poster">
+    <div class="poster-head"><h3 id="q-name">Kek Lapis Mak Jah</h3></div>
+    <p class="scan" id="q-scan">Imbas untuk order di WhatsApp</p>
+    <div id="qr"></div>
+    <p class="phr" id="q-hrs">Selasa hingga Ahad, 9 pagi hingga 6 petang</p>
+    <small>Disediakan oleh Kedai Senang Dicari</small>
+  </div>
+</div>
+
+<div class="panel" role="tabpanel" id="p-audit" aria-labelledby="t-audit" hidden>
+  <div class="explain">
+    <h2>Apa pelanggan nampak bila cari kedai anda</h2>
+    <p>Buka Google Maps sama-sama, cari nama kedai, tanda apa yang dah ada. Skor dan senarai pembaikan keluar terus.</p>
+    <p class="saywrap"><span class="say">“Jom kita tengok sama-sama.”</span></p>
+  </div>
+  <div class="audit">
+    <div class="score">
+      <svg class="ring" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="34" fill="none" stroke="var(--soft)" stroke-width="10"/><circle id="ring" cx="42" cy="42" r="34" fill="none" stroke="var(--go)" stroke-width="10" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 42 42)"/><text id="ring-t" x="42" y="48" text-anchor="middle" font-size="19" font-weight="800" fill="var(--ink)">0/8</text></svg>
+      <div><b id="s-label">Jom mula</b><p id="s-sub">Tanda apa yang listing kedai anda dah ada.</p></div>
+    </div>
+    <div class="checks" id="checks"></div>
+    <div><b>Yang perlu dibaiki</b><ul class="todo" id="todo"></ul></div>
+    <div class="rec" id="rec"></div>
+  </div>
+</div>
+
+<footer>
+  <span>Demo oleh A. Shaziq Idham, Johor Bahru</span>
+  <span>Kedai contoh ni rekaan. Apa yang anda taip kekal kat telefon ni je.</span>
+</footer>
+</div>
+
+<script>
+(function(){
+var SAMPLE={name:"Kek Lapis Mak Jah",tag:"Kek lapis Sarawak dan kuih raya buatan sendiri",area:"Kota Tinggi, Johor",hours:"Selasa hingga Ahad, 9 pagi hingga 6 petang",wa:"017-771 7206",color:0,
+  products:[{n:"Kek Lapis Sarawak Original (1 kg)",p:"45"},{n:"Kek Lapis Prune (1 kg)",p:"55"},{n:"Kuih Raya Balang",p:"25"},{n:"Kek Hari Jadi (tempahan)",p:"80"}]};
+var COLORS=[["#A84F4F","#FFFDF7","Merah bata"],["#2F6FA8","#FFFDF7","Biru"],["#0B7A54","#FFFDF7","Hijau"],["#C98A1B","#16233F","Kuning kunyit"],["#6B4FA0","#FFFDF7","Ungu"],["#16233F","#FFFDF7","Biru gelap"]];
+var KEY="ksd-demo-v2", S, qty={}, qrMode="wa";
+function load(){try{var v=localStorage.getItem(KEY);if(v){var o=JSON.parse(v);if(o&&o.products)return o;}}catch(e){}return JSON.parse(JSON.stringify(SAMPLE));}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+S=load();
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c];});}
+function initials(n){var w=n.trim().split(/\s+/).filter(Boolean);if(!w.length)return"?";return(w[0][0]+(w[1]?w[1][0]:"")).toUpperCase();}
+function num(){var d=(S.wa||"").replace(/\D/g,"");if(!d)return"";if(d.charAt(0)==="0")d="6"+d;else if(d.indexOf("60")!==0&&d.length<=10)d="60"+d;return d.length>=10&&d.length<=13?d:"";}
+function waURL(text){var n=num();return n?"https://wa.me/"+n+"?text="+encodeURIComponent(text):"";}
+function mapURL(){return"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent((S.name||"")+" "+(S.area||""));}
+function price(p){var v=parseFloat(String(p).replace(/[^0-9.]/g,""));return isNaN(v)?0:v;}
+function rm(v){return"RM"+(Math.round(v*100)/100).toFixed(v%1?2:0);}
+function cssv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+
+["name","tag","area","hours","wa"].forEach(function(k){var el=$("f-"+k);el.value=S[k]||"";el.addEventListener("input",function(){S[k]=el.value;save();render();});});
+var sw=$("swatches");
+COLORS.forEach(function(c,i){var b=document.createElement("button");b.type="button";b.style.setProperty("background",c[0]);b.setAttribute("aria-label",c[2]);b.setAttribute("aria-pressed",String(S.color===i));b.addEventListener("click",function(){S.color=i;save();sw.querySelectorAll("button").forEach(function(x,j){x.setAttribute("aria-pressed",String(j===i));});render();});sw.appendChild(b);});
+function drawRows(){var box=$("prows");box.innerHTML="";S.products.forEach(function(p,i){var r=document.createElement("div");r.className="prow";
+  r.innerHTML='<input type="text" id="pn'+i+'" aria-label="Nama produk '+(i+1)+'" value="'+esc(p.n)+'"><input type="text" id="pp'+i+'" inputmode="decimal" aria-label="Harga produk '+(i+1)+'" value="'+esc(p.p)+'"><button type="button" class="mini x" aria-label="Buang produk '+(i+1)+'">×</button>';
+  r.children[0].addEventListener("input",function(e){p.n=e.target.value;save();render();});
+  r.children[1].addEventListener("input",function(e){p.p=e.target.value;save();render();});
+  r.children[2].addEventListener("click",function(){S.products.splice(i,1);qty={};save();drawRows();render();});
+  box.appendChild(r);});
+  $("add-p").disabled=S.products.length>=8;}
+$("add-p").addEventListener("click",function(){if(S.products.length<8){S.products.push({n:"Produk baru",p:"10"});save();drawRows();render();}});
+$("reset").addEventListener("click",function(){S=JSON.parse(JSON.stringify(SAMPLE));qty={};save();["name","tag","area","hours","wa"].forEach(function(k){$("f-"+k).value=S[k];});sw.querySelectorAll("button").forEach(function(x,j){x.setAttribute("aria-pressed",String(j===0));});drawRows();render();});
+
+var tabs=["bio","order","qr","audit"];
+function show(t){tabs.forEach(function(x){$("t-"+x).setAttribute("aria-selected",String(x===t));$("p-"+x).hidden=x!==t;});if(t==="qr")drawQR();}
+tabs.forEach(function(t){$("t-"+t).addEventListener("click",function(){show(t);});});
+$("b-cat").addEventListener("click",function(){show("order");});
+
+function orderText(){var lines=["Salam "+(S.name||"")+", saya nak order:",""],tot=0;
+  S.products.forEach(function(p,i){var q=qty[i]||0;if(q>0){var sub=q*price(p.p);tot+=sub;lines.push("• "+q+" x "+p.n+": "+rm(sub));}});
+  lines.push("","Jumlah: "+rm(tot));
+  var c=$("o-cust").value.trim(),d=$("o-date").value,n=$("o-note").value.trim();
+  if(c)lines.push("Nama: "+c);
+  if(d){var dt=new Date(d+"T00:00:00");lines.push("Tarikh ambil: "+dt.toLocaleDateString("ms-MY",{weekday:"long",day:"numeric",month:"long",year:"numeric"}));}
+  if(n)lines.push("Nota: "+n);
+  return{text:lines.join("\n"),tot:tot};}
+function drawOrder(){var box=$("olist");box.innerHTML="";
+  S.products.forEach(function(p,i){var q=qty[i]||0;var d=document.createElement("div");d.className="oitem";
+    d.innerHTML='<div><b>'+esc(p.n||"Produk")+'</b><span>'+rm(price(p.p))+'</span></div><div class="step"><button type="button" aria-label="Kurang '+esc(p.n)+'">-</button><output aria-live="polite">'+q+'</output><button type="button" aria-label="Tambah '+esc(p.n)+'">+</button></div>';
+    var bs=d.querySelectorAll("button");
+    bs[0].addEventListener("click",function(){qty[i]=Math.max(0,(qty[i]||0)-1);drawOrder();});
+    bs[1].addEventListener("click",function(){qty[i]=Math.min(99,(qty[i]||0)+1);drawOrder();});
+    box.appendChild(d);});
+  updOrder();}
+function updOrder(){var o=orderText();$("o-total").textContent=rm(o.tot);$("o-prev").textContent=o.text;
+  var u=waURL(o.text),btn=$("o-send"),w=$("o-warn");
+  if(!num()){btn.removeAttribute("href");btn.setAttribute("aria-disabled","true");w.textContent="Masukkan nombor WhatsApp kedai kat atas dulu.";}
+  else if(o.tot<=0){btn.removeAttribute("href");btn.setAttribute("aria-disabled","true");w.textContent="Pilih sekurang-kurangnya satu barang.";}
+  else{btn.href=u;btn.setAttribute("aria-disabled","false");w.textContent="";}}
+["o-cust","o-date","o-note"].forEach(function(id){$(id).addEventListener("input",updOrder);});
+$("o-copy").addEventListener("click",function(){var t=$("o-prev").textContent,ok=$("o-ok");
+  function fb(){var r=document.createRange();r.selectNodeContents($("o-prev"));var s=window.getSelection();s.removeAllRanges();s.addRange(r);ok.textContent="Mesej dipilih. Tekan salin.";}
+  try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){ok.textContent="Mesej disalin.";},fb);}else fb();}catch(e){fb();}});
+
+function qrText(){return qrMode==="wa"?waURL("Salam "+(S.name||"")+", saya nak tanya atau order."):mapURL();}
+function drawQR(){var box=$("qr");box.innerHTML="";var t=qrText();
+  $("q-scan").textContent=qrMode==="wa"?"Imbas untuk order di WhatsApp":"Imbas untuk lokasi kedai";
+  if(!t){box.innerHTML='<p class="qrnote">Masukkan nombor WhatsApp kedai kat atas, QR keluar kat sini.</p>';return;}
+  if(typeof QRCode==="undefined"){box.innerHTML='<p class="qrnote">QR tak dapat dimuatkan. Semak internet.</p>';return;}
+  try{new QRCode(box,{text:t,width:200,height:200,colorDark:cssv("--poster-ink")||"#16233F",colorLight:cssv("--poster")||"#FCFCFA",correctLevel:QRCode.CorrectLevel.M});}catch(e){box.innerHTML='<p class="qrnote">QR tak dapat dijana.</p>';}}
+$("q-wa").addEventListener("click",function(){qrMode="wa";$("q-wa").setAttribute("aria-pressed","true");$("q-map").setAttribute("aria-pressed","false");drawQR();});
+$("q-map").addEventListener("click",function(){qrMode="map";$("q-map").setAttribute("aria-pressed","true");$("q-wa").setAttribute("aria-pressed","false");drawQR();});
+
+var CHECKS=[
+ ["claim","Listing dah dituntut tuan kedai (ada tanda ‘Dimiliki’)","Tuntut listing supaya hanya anda boleh ubah info kedai"],
+ ["cat","Kategori kedai betul (cth: Kedai kek, Pusat tuisyen)","Betulkan kategori supaya keluar dalam carian"],
+ ["hrs","Waktu buka tepat, termasuk hari cuti","Betulkan waktu buka supaya orang tak datang masa tutup"],
+ ["phone","Ada nombor telefon atau WhatsApp yang aktif","Tambah nombor aktif dan butang WhatsApp"],
+ ["photo","Sekurang-kurangnya 10 gambar kedai dan produk","Tambah gambar depan kedai, dalam kedai dan produk utama"],
+ ["fresh","Ada gambar baru dalam 3 bulan lepas","Kemas kini gambar supaya listing nampak hidup"],
+ ["reply","Tuan kedai balas ulasan pelanggan","Mula balas ulasan, lagi-lagi yang negatif"],
+ ["rev","Lebih 20 ulasan","Minta pelanggan tetap tinggal ulasan (QR ulasan kat kaunter)"]];
+var cbox=$("checks");
+CHECKS.forEach(function(c){var l=document.createElement("label");l.innerHTML='<input type="checkbox" id="c-'+c[0]+'"><span>'+c[1]+'</span>';l.querySelector("input").addEventListener("change",audit);cbox.appendChild(l);});
+function audit(){var have=0,todo=[];CHECKS.forEach(function(c){if($("c-"+c[0]).checked)have++;else todo.push(c);});
+  $("ring").setAttribute("stroke-dashoffset",String(213.6*(1-have/8)));$("ring-t").textContent=have+"/8";
+  var lbl,sub;
+  if(have===8){lbl="Listing lengkap";sub="Kedai anda dah sedia dijumpai.";}
+  else if(have>=6){lbl="Hampir siap";sub="Tinggal sikit lagi.";}
+  else if(have>=3){lbl="Separuh jalan";sub="Pelanggan baru mungkin pilih kedai lain.";}
+  else{lbl="Perlu dibaiki";sub="Kedai anda susah dijumpai kat Google Maps.";}
+  $("s-label").textContent=lbl;$("s-sub").textContent=sub;
+  $("todo").innerHTML=todo.length?todo.map(function(c){return"<li>"+esc(c[2])+"</li>";}).join(""):"<li>Tak ada. Bagus!</li>";
+  $("rec").innerHTML=have===8?"Listing dah kuat. Seterusnya: pakej <b>Senang Order</b> untuk susun order WhatsApp.":
+    "Pakej yang saya cadangkan: <b>"+(todo.length>=4?"Senang Order":"Senang Dicari")+"</b>. Saya boleh betulkan "+todo.length+" perkara ni.";}
+
+function render(){var c=COLORS[S.color]||COLORS[0];document.documentElement.style.setProperty("--shop",c[0]);document.documentElement.style.setProperty("--shop-ink",c[1]);
+  var n=S.name||"Nama kedai";
+  $("s-name").textContent=n;$("s-tag").textContent=S.tag||"";$("s-area").textContent=S.area||"";$("s-hrs").textContent=S.hours||"";
+  $("s-tel").textContent=(S.wa&&S.wa.trim())?"Tel / WhatsApp  "+S.wa.trim():"Tel / WhatsApp  (masukkan nombor)";
+  $("b-logo").textContent=initials(n);$("b-name").textContent=n;$("b-tag").textContent=S.tag||"";$("b-area").textContent=S.area||"";$("b-hrs").textContent=S.hours||"Waktu buka";
+  var w=waURL("Salam "+n+", saya nak tanya atau order."),bw=$("b-wa");
+  if(w){bw.href=w;bw.classList.remove("off");bw.textContent="Order di WhatsApp";}else{bw.removeAttribute("href");bw.classList.add("off");bw.textContent="Order di WhatsApp (masukkan nombor)";}
+  $("b-map").href=mapURL();
+  $("o-name").textContent=n;$("q-name").textContent=n;$("q-hrs").textContent=S.hours||"";
+  drawOrder();if(!$("p-qr").hidden)drawQR();}
+drawRows();render();audit();
+})();
+</script>
+</body>
+</html>
